@@ -29,3 +29,17 @@ The implementation is resilient: it uses an *Akka Cluster Singleton* in combinat
 3. Start one or more nodes that will run the read model: `sbt rmodel1`, `sbt rmodel2`, `sbt rmodel3`
 
 > Note: When starting-up the application when all nodes are down, cluster formation will not take place before the node running the write model is started as this node is the first Akka Cluster seed-node  
+
+
+
+## Performance test
+
+sbt "testOnly performance.PersistencePerformance"
+
+#### Postgres
+```
+docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres
+psql -h localhost -U postgres -d docker
+```
+
+https://github.com/dnvriend/akka-persistence-jdbc/blob/master/src/test/resources/schema/postgres/postgres-schema.sql

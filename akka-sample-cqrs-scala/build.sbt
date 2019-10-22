@@ -7,6 +7,8 @@ val AkkaPersistenceCassandraVersion = "0.93"
 val AkkaHttpVersion = "10.1.8"
 val AkkaClusterManagementVersion = "0.17.0"
 
+fork in Test := true
+
 lazy val `akka-sample-cqrs-scala` = project
   .in(file("."))
   .settings(multiJvmSettings: _*)
@@ -28,7 +30,13 @@ lazy val `akka-sample-cqrs-scala` = project
       "com.typesafe.akka" %% "akka-slf4j" % AkkaVersion,
       "ch.qos.logback" % "logback-classic" % "1.2.3",
       "com.typesafe.akka" %% "akka-multi-node-testkit" % AkkaVersion % "test",
-      "org.scalatest" %% "scalatest" % "3.0.7" % Test),
+      "org.scalatest" %% "scalatest" % "3.0.7" % Test,
+      "com.typesafe.akka" %% "akka-testkit" % "2.6.0-M8" % Test,
+      "org.fusesource.leveldbjni" % "leveldbjni-all" % "1.8",
+      "com.github.dnvriend" %% "akka-persistence-jdbc" % "3.5.2",
+      "org.postgresql" % "postgresql" % "42.2.8",
+      "com.madhukaraphatak" % "java-sizeof_2.11" % "0.1"
+    ),
     fork in run := false,
     mainClass in (Compile, run) := Some("sample.cqrs.CqrsApp"),
     // disable parallel tests
